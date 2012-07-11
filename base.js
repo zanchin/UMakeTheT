@@ -8,7 +8,16 @@
       DT.go('style');
     });
 
-    $("div #type").on('click', function() {
+    $("div #style").on('click', function() {
+      DT.go('design');
+    });
+
+    $("div #design").on('click', function() {
+      DT.go('purchase');
+    });
+
+    $("div #purchase").on('click', function() {
+      alert("Thank you for designing and buying your T!");
       DT.go('home');
     });
 
@@ -68,7 +77,7 @@
 
   var DT = {
     current: {
-      size: "Medium",
+      size: "",
       style: ""
     },
     setCurrent: function(data){
@@ -79,6 +88,9 @@
         }
       }
 
+      var text = "Selected size: " + DT.current.size;
+      text += ", Selected style: " + DT.current.style;
+      $(".current").text(text);
       // console.log(JSON.stringify(DT.current));
     },
 
@@ -93,7 +105,8 @@
       var ids = {
         'size': 'sizecontent',
         'style': 'stylecontent',
-        'cc': 'cccontent',
+        'design': 'designcontent',
+        'purchase': 'purchasecontent',
         'home': 'homecontent'
       };
 
