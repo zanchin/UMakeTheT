@@ -23,7 +23,7 @@
     });
 
     $("div #purchase").on('click', function() {
-      alert("Thank you for designing and buying your T!");
+      alert("Thank you for designing and buying your T!\nYour t shirt is on it's way!");
       DT.go('home');
     });
 
@@ -129,12 +129,6 @@
       var file = file_input.files[0];
       if (file) {
         // make sure file is an image
-        // if( !/(png|jpg|jpeg)$/.test(file.name) ){
-        //   alert("You must upload an image file");
-        //   return false;
-        // }
-
-        // Only process image files.
         if (!file.type.match('image.*')) {
           alert("You must upload an image file");
           return false;
