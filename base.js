@@ -1,5 +1,11 @@
 (function(){
   $(function() {
+    // init CloudMine
+    DT.cm = new cloudmine.WebService({
+      appid: "c531b2033040451190f52c64a9a1e9f2",
+      apikey: "9b9a2db3a9324ab6a15455be75eaf004"
+    });
+
     $("div #start").on('click', function() {
       DT.go('size');
     });
@@ -70,7 +76,10 @@
       ],
       selectText: "Select the T type",
       onSelected: function(data){
-        DT.setCurrent({style: data.selectedData.text});
+        DT.setCurrent({
+          style: data.selectedData.text,
+          preview_image: "images/" + data.selectedData.value + "_large.png"
+        });
       }
     });
   });
@@ -91,9 +100,11 @@
       var text = "Selected size: " + DT.current.size;
       text += ", Selected style: " + DT.current.style;
       $(".current").text(text);
+
+      $(".shirt_image").attr("src", DT.current.preview_image);
+
       // console.log(JSON.stringify(DT.current));
     },
-
     navigate: function(url){
       document.location.href = url;
     },
@@ -112,6 +123,42 @@
 
       var contentid = ids[loc] || ids.home;
       DT.showcontent(contentid);
+    },
+    fileSelected: function(file_input){
+      console.log(file_input);
+      var file = file_input.files[0];
+      if (file) {
+        // make sure file is an image
+        // if( !/(png|jpg|jpeg)$/.test(file.name) ){
+        //   alert("You must upload an image file");
+        //   return false;
+        // }
+
+        // Only process image files.
+        if (!file.type.match('image.*')) {
+          alert("You must upload an image file");
+          return false;
+        }
+
+        var reader = new FileReader();
+
+        // Closure to capture the file information.
+        reader.onload = (function(theFile) {
+          return function(e) {
+            // Render thumbnail.
+            $(".logo_image img").attr("src", e.target.result);
+          };
+        })(file);
+
+        // Read in the image file as a data URL.
+        reader.readAsDataURL(file);
+      }
+
+        // DT.cm.upload("logo", file).on("success", function(result){
+        //   console.log(result);
+        // });
+      // // }
+      // return true;
     }
   };
 

@@ -24,6 +24,16 @@
     /* display: inline-block; */
 }
 
+.preview {
+    position: relative;
+}
+
+.logo_image {
+    position: absolute;
+    top: 160px;
+    left: 145px;
+}
+
 .hidden {
     display: none;
 }
